@@ -1,24 +1,26 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int M = sc.nextInt();
-        sc.nextLine();
-        int[] arr = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        int[] sumArr = new int[N];
-        sumArr[0] = arr[0];
-        for (int i = 1; i < N; i++) {
-            sumArr[i] = sumArr[i - 1] + arr[i];
-        }
-
-        for (int i = 0; i < M; i++) {
-            int start = sc.nextInt();
-            int end = sc.nextInt();
-            System.out.println(sumArr[end - 1] - sumArr[start - 1] + arr[start - 1]);
-        }
+  public static void main(String[] args) throws IOException {
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+    int suNo = Integer.parseInt(stringTokenizer.nextToken());
+    int quizNo = Integer.parseInt(stringTokenizer.nextToken());
+    long[] S = new long[suNo + 1];
+    stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+    
+    for (int i = 1; i <= suNo; i++) {
+      S[i] = S[i - 1] + Integer.parseInt(stringTokenizer.nextToken());
     }
+      
+    for (int q = 0; q < quizNo; q++) {
+      stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+      int i = Integer.parseInt(stringTokenizer.nextToken());
+      int j = Integer.parseInt(stringTokenizer.nextToken());
+      System.out.println(S[j] - S[i - 1]);
+    }
+  }
 }
