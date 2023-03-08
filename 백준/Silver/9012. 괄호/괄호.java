@@ -7,31 +7,24 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        String[] arr = new String[N];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = br.readLine();
-        }
 
-        for (int i = 0; i < arr.length; i++) {
-            char[] a = arr[i].toCharArray();
+        for (int i = 0; i < N; i++) {
+            char[] a = br.readLine().toCharArray();
             Stack<Character> st = new Stack();
-            int index = 1;
-            st.push(a[0]);
+            int index = 0;
             while (index < a.length) {
-                if (st.isEmpty() || st.peek() == a[index]) {
+                if (st.isEmpty() || a[index] == '(') {
                     st.push(a[index++]);
-                } else if(st.peek() == '('){
-                    st.pop();
-                    index++;
-                } else{
-                    st.push(a[index++]);
+                } else {
+                    if(st.peek() == '(') {
+                        st.pop();
+                        index++;
+                    }else{
+                        st.push(a[index++]);
+                    }
                 }
             }
-            if (st.isEmpty()) {
-                System.out.println("YES");
-            } else {
-                System.out.println("NO");
-            }
+            System.out.println(st.isEmpty() ? "YES" : "NO");
         }
     }
 }
