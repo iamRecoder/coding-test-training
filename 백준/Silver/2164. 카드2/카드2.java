@@ -3,22 +3,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        Deque<Integer> deque = new LinkedList<>();
+        Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < N; i++) {
-            deque.offerFirst(i+1);
+            queue.offer(i+1);
         }
 
         int lastElement = 0;
-        while (!deque.isEmpty()) {
-            lastElement = deque.pollLast();
-            if (!deque.isEmpty()) {
-                lastElement = deque.pollLast();
-                deque.offerFirst(lastElement);
+        while (!queue.isEmpty()) {
+            lastElement = queue.poll();
+            if (!queue.isEmpty()) {
+                lastElement = queue.poll();
+                queue.offer(lastElement);
             }
         }
 
