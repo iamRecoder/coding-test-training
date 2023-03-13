@@ -10,29 +10,29 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int arr[] = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(br.readLine());
-        }
-        int avg = (int) Math.round(Arrays.stream(arr).average().getAsDouble());
-        Arrays.sort(arr);
-        int mid = arr[(n - 1) / 2];
+        int sum = 0, max_cnt = 0;
         HashMap<Integer, Integer> hashMap = new HashMap<>();
         PriorityQueue<Integer> queue = new PriorityQueue<>();
-        int max_cnt = 0;
-        for(int e : arr) {
-            int cnt = hashMap.getOrDefault(e, 0) + 1;
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(br.readLine());
+            sum += arr[i];
+            int cnt = hashMap.getOrDefault(arr[i], 0) + 1;
             if (cnt > max_cnt) {
                 queue.clear();
-                queue.offer(e);
+                queue.offer(arr[i]);
                 max_cnt = cnt;
             } else if (cnt == max_cnt) {
-                queue.offer(e);
+                queue.offer(arr[i]);
             }
-            hashMap.put(e, cnt);
-        };
+            hashMap.put(arr[i], cnt);
+        }
+        int avg = (int) Math.round((double)sum / n);
+        Arrays.sort(arr);
+        int mid = arr[(n - 1) / 2];
+
         int mod = queue.poll();
         if (!queue.isEmpty()) mod = queue.poll();
-        int range = arr[arr.length - 1] - arr[0];
+        int range = arr[n - 1] - arr[0];
         System.out.println(avg + "\n" + mid + "\n" + mod + "\n" + range);
     }
 }
