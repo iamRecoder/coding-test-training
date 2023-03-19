@@ -17,10 +17,8 @@ public class Main {
         for (int j = coins.length - 1; j >= 0; j--) {
             if (K == 0) break;
             if (K >= coins[j]) {
-                while (K >= coins[j]) {
-                    K -= coins[j];
-                    cnt++;
-                }
+                cnt += (K / coins[j]);
+                K %= coins[j];
             }
         }
         System.out.println(cnt);
