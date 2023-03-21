@@ -15,13 +15,16 @@ public class Main {
         isPrimeNumber[0] = false;
         isPrimeNumber[1] = false;
         for(int i = 2; i <= Math.sqrt(N); i++ ){
+            if(isPrimeNumber[i] == false) continue;
             for(int j =2; i*j <= N; j++){
                 isPrimeNumber[i*j] = false;
             }
         }
+        StringBuilder sb = new StringBuilder();
         for(int i = M; i <= N; i++){
             if(isPrimeNumber[i])
-                System.out.println(i);
+                sb.append(i+"\n");
         }
+        System.out.println(sb);
     }
 }
