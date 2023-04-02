@@ -1,45 +1,20 @@
 import java.util.Scanner;
 
+// 이렇게 깔끔하게 문제를 풀 수 있도록 노오오오력하자..
 public class Main {
-    static int N;
-    static int min = Integer.MAX_VALUE;
-    static int cnt = 0;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        N = sc.nextInt();
-        dfs(N);
-        System.out.println(min);
-
-    }
-
-    static void dfs(int K){
-        if(cnt > min)
-            return;
-        if(K == 1){
-            min = Math.min(min,cnt);
-        }else if(K == N){
-            if(K % 3 == 0){
-                cnt = 1;
-                dfs(K/3);
+    public static void main(String[] args){
+        int N = new Scanner(System.in).nextInt();
+        int[] dp = new int[N+1];
+        dp[1] = 0;
+        for(int i=2; i <=N; i++){
+            dp[i] = dp[i-1] + 1;
+            if(i % 3==0){
+                dp[i] = Math.min(dp[i], dp[i/3] + 1);
             }
-            if(K % 2 == 0){
-                cnt = 1;
-                dfs(K/2);
+            if(i % 2 == 0){
+                dp[i] = Math.min(dp[i], dp[i/2] + 1);
             }
-            cnt = 1;
-            dfs(K-1);
-        }else{
-            int temp = cnt;
-            if(K % 3 == 0){
-                cnt = temp + 1;
-                dfs(K/3);
-            }
-            if(K % 2 == 0){
-                cnt = temp + 1;
-                dfs(K/2);
-            }
-            cnt = temp + 1;
-            dfs(K-1);
         }
+        System.out.println(dp[N]);
     }
 }
