@@ -4,7 +4,7 @@ class Solution {
     public int solution(String s) {
         int answer = s.length();
         // 1개 단위(step)부터 압축 단위를 늘려가며 확인
-        for (int step = 1; step < s.length() / 2 + 1; step++) {
+        for (int step = 1; step <= s.length() / 2 + 1; step++) {
             String compressed = "";
             String prev = s.substring(0, step); // 앞에서부터 step만큼의 문자열 추출
             int cnt = 1;
