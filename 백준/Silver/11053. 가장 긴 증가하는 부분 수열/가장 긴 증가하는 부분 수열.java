@@ -20,12 +20,12 @@ public class Main {
         for (int i = 1; i <= N; i++) {
             dp[i] = 1;
             for (int j = 0; j < i; j++) {
-                if (arr[j] < arr[i] && dp[i] <= dp[j]) {
+                if (arr[j] < arr[i] && dp[i] <= dp[j]) {    // 현재 값을 포함하는 경우, 최대값 갱신
                     dp[i] = dp[j] + 1;
                 }
             }
         }
-        
+
         Arrays.sort(dp);
         System.out.println(dp[N]);
     }
