@@ -20,15 +20,9 @@ public class Main {
         for(int i = 1; i <= N; i++){
             int after = i-1 +consultings[i][0];
             if(after <= N) {
-                for (int j = i; j <= after; j++) {
-                    dp[j] = Math.max(dp[j - 1], dp[j]);
-                }
                 dp[after] = Math.max(dp[after], dp[i - 1] + consultings[i][1]);
-            }else{
-                for(int j = i; j <= N; j++){
-                    dp[j] = Math.max(dp[j - 1], dp[j]);
-                }
             }
+            dp[i] = Math.max(dp[i], dp[i-1]);
         }
         System.out.println(dp[N]);
     }
