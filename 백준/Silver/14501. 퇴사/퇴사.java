@@ -2,42 +2,28 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static int arr[][];
-    public static int sum = 0;
-    public static int max = 0;
-    public static boolean checked = false;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        arr = new int[N][2];
-        int dp[] = new int[N];  // N일차의 상담을 수락했을 때
+        int[] T = new int[N];
+        int[] P = new int[N];
+        int[] dp = new int[N + 1];
+
         for(int i = 0; i < N; i++){
-            arr[i] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            T[i] = Integer.parseInt(st.nextToken());
+            P[i] = Integer.parseInt(st.nextToken());
+            if(i > 0)  dp[i] = Math.max(dp[i], dp[i - 1]);
+            if(i + T[i] <= N){
+                dp[i + T[i]] = Math.max(dp[i + T[i]], dp[i] + P[i]);
+            }
         }
+        if(N > 1) dp[N] = Math.max(dp[N], dp[N - 1]);
 
-        max_price(0);
-        System.out.println(max);
+        System.out.println(dp[N]);
+
     }
-
-    public static void max_price(int t){
-     
-        if(t > arr.length-1){
-            max = Math.max(sum, max);
-        }else{
-            checked = true;
-            if(t+arr[t][0] <= arr.length)
-                sum += arr[t][1];
-            
-            max_price(t+arr[t][0]);
-            checked = false;
-            if(t+arr[t][0] <= arr.length)
-                sum -= arr[t][1];
-            
-            max_price(t+1);
-        }
-    }
-
-
 }
