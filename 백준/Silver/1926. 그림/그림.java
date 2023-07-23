@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -12,26 +10,27 @@ public class Main {
     static int count = 0;
     static int max = 0;
     static boolean[][] arr;
-    static ArrayList<int[]> list = new ArrayList<>();
+    static int size = 0;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         arr = new boolean[n][m];
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < m; j++) {
                 arr[i][j] = Integer.parseInt(st.nextToken()) == 1;
             }
         }
 
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < m; j++){
-                if(arr[i][j]) {
-                    list.clear();
-                    bfs(i, j, 1);
-                    max = Math.max(max, list.size());
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (arr[i][j]) {
+                    size = 0;
+                    bfs(i, j);
+                    max = Math.max(max, size);
                     count++;
                 }
             }
@@ -40,14 +39,14 @@ public class Main {
         System.out.println(count + "\n" + max);
     }
 
-    static void bfs(int x, int y, int size){
-        list.add(new int[]{x,y});
+    static void bfs(int x, int y) {
+        size++;
         arr[x][y] = false;
-        for(int i = 0; i < dx.length; i++){
+        for (int i = 0; i < dx.length; i++) {
             int nx = x + dx[i];
             int ny = y + dy[i];
-            if(0 <= nx && nx < n && 0 <= ny && ny < m && arr[nx][ny]){
-                bfs(nx, ny, size + 1);
+            if (0 <= nx && nx < n && 0 <= ny && ny < m && arr[nx][ny]) {
+                bfs(nx, ny);
             }
         }
     }
