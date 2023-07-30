@@ -1,55 +1,44 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int parent[];
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int M = sc.nextInt();
-        parent = new int[N + 1];
-        for (int i = 0; i < N + 1; i++) {
-            parent[i] = i;  // 대표 노드 초기화
+    static int[] parents;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        parents = new int[n+1];
+        for(int i = 0; i <= n; i++){
+            parents[i] = i;
         }
-
-        for (int i = 0; i < M; i++) {
-            int question = sc.nextInt();
-            int s = sc.nextInt();
-            int e = sc.nextInt();
-            if (question == 0) {
-                union(s, e);
-            } else {
-                boolean result = checkSame(s, e);
-                if (result) {
-                    System.out.println("YES ");
-                } else {
-                    System.out.println("NO ");
-                }
+        for(int i = 0; i < m; i++){
+            st = new StringTokenizer(br.readLine());
+            int cal = Integer.parseInt(st.nextToken());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            if(cal == 0){
+                union(a,b);
+            }else if(cal == 1){
+                System.out.println(find(a) == find(b) ? "YES": "NO");
             }
-            
         }
     }
 
-    private static void union(int s, int e) {
-        s = find(s);
-        e = find(e);
-        if (s != e) {
-            parent[e] = s;
+    static void union(int a, int b){
+        a = find(a);
+        b = find(b);
+        if(a != b){
+            parents[b] = a;
         }
     }
 
-    private static boolean checkSame(int s, int e) {
-        s = find(s);
-        e = find(e);
-        return s == e;
-    }
-
-    private static int find(int s) {
-        if (s == parent[s])
-            return s;
-        else {
-            return parent[s] = find(parent[s]);
-        }
+    static int find(int a){
+        if(parents[a] == a) return a;
+        return parents[a] = find(parents[a]);
     }
 }
