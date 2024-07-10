@@ -1,11 +1,16 @@
-
-
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        sc.nextInt();
-        System.out.println(sc.next().chars().map(c -> c - '0').sum());
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int num = Integer.parseInt(br.readLine());
+        int sum = 0;
+        String line = br.readLine();
+
+        for(int i = 0; i < num; i++){
+            sum += line.charAt(i) - '0';
+        }
+        System.out.println(sum);
     }
 }
