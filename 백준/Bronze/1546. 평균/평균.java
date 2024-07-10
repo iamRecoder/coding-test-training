@@ -1,16 +1,21 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        int[] arr = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        int max = Arrays.stream(arr).max().getAsInt();
-        double avg = Arrays.stream(arr).average().getAsDouble() / max * 100;
-        System.out.println(avg);
+        int n = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int sum = 0, max = 0;
+        for(int i = 0; i < n; i++){
+            int score = Integer.parseInt(st.nextToken());
+            max = Integer.max(score, max);
+            sum += score;
+        }
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        bw.write((float)sum*100/max/n +"");
+        bw.flush();
+        bw.close();
     }
 }
