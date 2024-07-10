@@ -12,10 +12,7 @@ public class Main {
             max = Integer.max(score, max);
             sum += score;
         }
+        System.out.println((float)sum*100/max/n);
 
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        bw.write((float)sum*100/max/n +"");
-        bw.flush();
-        bw.close();
     }
 }
